@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Lesson26
 {
+    // Я просто начинаю путаться. тут нечего смотреть :(
     class Program
     {
         static void Main(string[] args)
