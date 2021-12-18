@@ -6,6 +6,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization.Formatters.Soap;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace Lesson26
 {
@@ -61,6 +62,26 @@ namespace Lesson26
             using (var file = new FileStream("groups.soap", FileMode.OpenOrCreate))
             {
                 var newGroups = soapFormatter.Deserialize(file) as Group[];
+
+                if (newGroups != null)
+                {
+                    foreach (var group in newGroups)
+                    {
+                        Console.WriteLine(group);
+                    }
+                }
+            }
+
+            var xnlFarmatter = new XmlSerializer(typeof(List<Group>));
+
+            using (var file = new FileStream("groups.xml", FileMode.OpenOrCreate))
+            {
+                xnlFarmatter.Serialize(file, groups);
+            }
+
+            using (var file = new FileStream("groups.xml", FileMode.OpenOrCreate))
+            {
+                var newGroups = xnlFarmatter.Deserialize(file) as List<Group>;
 
                 if (newGroups != null)
                 {
