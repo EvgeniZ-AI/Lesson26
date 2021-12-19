@@ -55,6 +55,8 @@ namespace Lesson26
                 }
             }
 
+            Console.WriteLine();
+
             var soapFormatter = new SoapFormatter();
 
             using (var file = new FileStream("groups.soap", FileMode.OpenOrCreate))
@@ -73,6 +75,8 @@ namespace Lesson26
                     }
                 }
             }
+
+            Console.WriteLine();
 
             // xml перестал работать:(
 
@@ -104,6 +108,9 @@ namespace Lesson26
                 Console.WriteLine(ex.Message);
             }
 
+            Console.WriteLine();
+
+
             var jsonFormatter = new DataContractJsonSerializer(typeof(List<Student>));
 
 
@@ -124,6 +131,7 @@ namespace Lesson26
                     }
                 }
             }
+            //Json рулит!!!
         }
     }
 }
