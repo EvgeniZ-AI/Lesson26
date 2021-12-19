@@ -72,25 +72,36 @@ namespace Lesson26
                 }
             }
 
-            var xnlFarmatter = new XmlSerializer(typeof(List<Group>));
+            // xml перестал работать:(
 
-            using (var file = new FileStream("groups.xml", FileMode.OpenOrCreate))
+            try
             {
-                xnlFarmatter.Serialize(file, groups);
-            }
-
-            using (var file = new FileStream("groups.xml", FileMode.OpenOrCreate))
-            {
-                var newGroups = xnlFarmatter.Deserialize(file) as List<Group>;
-
-                if (newGroups != null)
+                var xnlFarmatter = new XmlSerializer(typeof(List<Group>));
+                //TODO: заставить записывать и заставить записывать только базовые типы
+                using (var file = new FileStream("groups.xml", FileMode.OpenOrCreate))
                 {
-                    foreach (var group in newGroups)
+                    xnlFarmatter.Serialize(file, groups);
+                }
+
+                using (var file = new FileStream("groups.xml", FileMode.OpenOrCreate))
+                {
+                    var newGroups = xnlFarmatter.Deserialize(file) as List<Group>;
+
+                    if (newGroups != null)
                     {
-                        Console.WriteLine(group);
+                        foreach (var group in newGroups)
+                        {
+                            Console.WriteLine(group);
+                        }
                     }
                 }
             }
+            catch (Exception ex)
+            {
+                //Видно можно записывать только базовые типы.
+                Console.WriteLine(ex.Message);
+            }
+            
         }
     }
 }
