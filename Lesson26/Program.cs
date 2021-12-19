@@ -7,6 +7,8 @@ using System.Runtime.Serialization.Formatters.Soap;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Json;
 
 namespace Lesson26
 {
@@ -77,7 +79,7 @@ namespace Lesson26
             try
             {
                 var xnlFarmatter = new XmlSerializer(typeof(List<Group>));
-                //TODO: заставить записывать и заставить записывать только базовые типы
+                //решил проблему
                 using (var file = new FileStream("groups.xml", FileMode.OpenOrCreate))
                 {
                     xnlFarmatter.Serialize(file, groups);
@@ -101,8 +103,27 @@ namespace Lesson26
                 //Видно можно записывать только базовые типы.
                 Console.WriteLine(ex.Message);
             }
-            
 
+            var jsonFormatter = new DataContractJsonSerializer(typeof(List<Student>));
+
+
+            using (var file = new FileStream("students.json", FileMode.OpenOrCreate))
+            {
+                jsonFormatter.WriteObject(file, students);
+            }
+
+            using (var file = new FileStream("students.json", FileMode.OpenOrCreate))
+            {
+                var newStudent = jsonFormatter.ReadObject(file) as List<Student>;
+
+                if (newStudent != null)
+                {
+                    foreach (var student in newStudent)
+                    {
+                        Console.WriteLine(student);
+                    }
+                }
+            }
         }
     }
 }

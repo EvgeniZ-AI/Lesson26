@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Lesson26
 {
     [Serializable]
-    class Group
+    public class Group
     {
         [NonSerialized]
         private readonly Random rnd = new Random(DateTime.Now.Millisecond);
